@@ -1,4 +1,4 @@
-import {PlusCircleIcon } from "lucide-react";
+import { Plus } from "lucide-react";
 import type { ChangeEvent } from "react";
 
 type InputItem = {
@@ -18,9 +18,9 @@ export const TodoInput = ({inputText,onClickAdd,onChangeInputTxt}:InputItem) => 
             value={inputText}
             onChange={onChangeInputTxt}
           />
-          <button className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-orange-500 text-black hover:bg-orange-600"
+          <button className="flex h-10  w-10 items-center justify-center rounded-full bg-orange-500 text-black shadow-md transition-transform duration-200 hover:scale-105 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400"
                   onClick={onClickAdd}>
-            <PlusCircleIcon></PlusCircleIcon>
+            <Plus size={24} strokeWidth={2}></Plus>
           </button>
         </div>
       </div>

@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { AlertTriangle } from "lucide-react"
 
 type EditTodoDialogProps = {
   open: boolean;
@@ -41,13 +42,13 @@ export const EditTodoDialog = ({open,onOpenChange,initialText,onSave}: EditTodoD
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent>
           <DialogHeader>登録内容を編集</DialogHeader>
-          <Input value={editText} onChange={(e) => setEditText(e.target.value)} />
           {error && (
-            <Alert variant="destructive" className="mt-2">
-              <AlertTitle>Error</AlertTitle>
+            <Alert variant="destructive" className="text-base">
+              <AlertTitle className="flex items-center gap-2"><AlertTriangle/>ERROR</AlertTitle>
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
+          <Input value={editText} onChange={(e) => setEditText(e.target.value)} />
           <DialogFooter>
             <Button onClick={dialogSaveClick}>保存する</Button>
           </DialogFooter>
