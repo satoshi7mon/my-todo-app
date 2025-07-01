@@ -10,15 +10,15 @@ export const TodoCompleteProgress = ({ done, total }: CompleteProgress) => {
 
   return (
     <>
-      <div className="flex w-full items-center justify-between rounded-xl border border-neutral-100 bg-gray-950 p-9 text-white">
+      <div className="flex w-full items-center justify-between rounded-xl border border-neutral-100 bg-gray-950 p-9">
         <div>
-          <p className="font-serif text-lg font-semibold text-neutral-200">
+          <p className="pb-2 text-2xl font-extrabold">
             TODO DONE
           </p>
-          <p className="font-serif text-sm text-neutral-200">Keep stacking!</p>
+          <p className="text-lg font-semibold">Keep stacking!</p>
         </div>
         <div className="flex h-32 w-32 items-center justify-center rounded-full bg-orange-500">
-          <span className="font-serif text-xl font-bold text-black">
+          <span className="text-xl font-bold text-black">
             {progress}
           </span>
         </div>
