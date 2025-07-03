@@ -1,5 +1,6 @@
-import { collection, doc ,addDoc, getDocs, deleteDoc, updateDoc, orderBy, query, serverTimestamp } from "firebase/firestore";
+import { collection, doc ,addDoc, getDocs, deleteDoc, updateDoc, orderBy, query, serverTimestamp} from "firebase/firestore";
 import { db } from "../firebase";
+import type { Todo } from "@/features/todo/Type";
 
 // 追加
 export const addTodo = async (text: string) => {
@@ -25,7 +26,7 @@ export const fetchTodos = async () => {
     const querySnapshot = await getDocs(sorted);
     return querySnapshot.docs.map(doc => ({
       id: doc.id,
-      ...doc.data() as {text:string,completed:boolean}
+      ...doc.data() as Omit<Todo,"id">
     }));
   } catch (error) {
     console.error("Error Fetch Documents: ", error);

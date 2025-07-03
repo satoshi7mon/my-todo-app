@@ -6,6 +6,7 @@ import { TodoList } from "@/features/todo/TodoList";
 import { EditTodoDialog } from "@/features/todo/EditTodoDialog";
 import type { Todo } from "./features/todo/Type";
 import { addTodo,fetchTodos,deleteTodo,updateTodo } from "./services/todoService";
+import type { Timestamp } from "firebase/firestore";
 
 
 function App() {
@@ -23,9 +24,10 @@ function App() {
       // Firestoreから持ってきたデータをStateにセット
       setTodos(
         fetched.map((data) => ({
-          text: data.text as string,
-          completed: data.completed as boolean,
-          id: data.id as string,
+          text: data.text,
+          completed: data.completed,
+          id: data.id,
+          createdAt: data.createdAt,
         }))
       );
     };
@@ -43,9 +45,10 @@ function App() {
     const fetched = await fetchTodos();
     setTodos(
       fetched.map((data) => ({
-        text: data.text as string,
-        completed: data.completed as boolean,
-        id: data.id as string,
+        text: data.text,
+        completed: data.completed,
+        id: data.id,
+        createdAt: data.createdAt,
       }))
     );
     

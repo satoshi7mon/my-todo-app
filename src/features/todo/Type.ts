@@ -1,6 +1,9 @@
+import type { Timestamp } from "firebase/firestore";
+
 export type Todo = {
   text: string;
   completed: boolean;
-  // Firebaseでidが必要なため追加
+  // Firebaseでid(とソート用のtimestamp)が必要なため追加
   id:string;
+  createdAt:Timestamp;
 };
