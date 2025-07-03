@@ -10,9 +10,9 @@ type InputItem = {
 export const TodoInput = ({inputText,onClickAdd,onChangeInputTxt}:InputItem) => {
   return (
     <>
-      <div className="mb-4">
-        <div className="flex gap-2">
-          <input
+    <div className="mb-4">
+      <div className="flex gap-2">
+        <input
             className="w-full rounded p-2 text-black"
             placeholder="write your new task"
             value={inputText}

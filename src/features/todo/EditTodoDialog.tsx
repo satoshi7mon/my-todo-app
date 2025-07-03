@@ -23,7 +23,7 @@ export const EditTodoDialog = ({open,onOpenChange,initialText,onSave}: EditTodoD
   const [error, setError] = useState("");
     
   useEffect(() => {
-    if (open) {
+      if (open) {
       setEditText(initialText);
       setError("");
     }

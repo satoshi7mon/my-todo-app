@@ -3,8 +3,6 @@ type CompleteProgress = {
   total: number;
 };
 
-// { taskTitle, id, isDone }: TodoItemProp
-
 export const TodoCompleteProgress = ({ done, total }: CompleteProgress) => {
   const progress = `${done}/${total}`;
 

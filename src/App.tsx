@@ -6,7 +6,7 @@ import { TodoList } from "@/features/todo/TodoList";
 import { EditTodoDialog } from "@/features/todo/EditTodoDialog";
 import type { Todo } from "./features/todo/Type";
 import { addTodo,fetchTodos,deleteTodo,updateTodo } from "./services/todoService";
-import type { Timestamp } from "firebase/firestore";
+
 
 
 function App() {
