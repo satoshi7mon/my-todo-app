@@ -1,10 +1,11 @@
-import { useState, type ChangeEvent } from "react";
+import { useState, type ChangeEvent,useEffect } from "react";
 import { ClipboardList } from "lucide-react";
 import { TodoCompleteProgress } from "@/features/todo/TodoCompleteProgress";
 import { TodoInput } from "@/features/todo/TodoInput";
 import { TodoList } from "@/features/todo/TodoList";
 import { EditTodoDialog } from "@/features/todo/EditTodoDialog";
-import type { Todo } from "./features/todo/type";
+import type { Todo } from "./features/todo/Type";
+import { addTodo,fetchTodos,deleteTodo,updateTodo } from "./services/todoService";
 
 
 function App() {
@@ -15,13 +16,39 @@ function App() {
 
   const [editIndex,setEditIndex] = useState<number | null>(null);
 
-  const [editText, setEditText] = useState<string>("");
+
+  useEffect(() => {
+    const loadTodos = async () => {
+      const fetched = await fetchTodos();
+      // Firestoreから持ってきたデータをStateにセット
+      setTodos(
+        fetched.map((data) => ({
+          text: data.text as string,
+          completed: data.completed as boolean,
+          id: data.id as string,
+        }))
+      );
+    };
+    loadTodos();
+  }, []);
 
   // todo入力後(+)を押した際の処理
-  const onClickAdd = () => {
+  const onClickAdd = async () => {
     if (todoText === "") return;
-    const newTodos = [...todos,{text:todoText,completed:false}];
-    setTodos(newTodos);
+
+    // firestore(DB)に書き込み
+    await addTodo(todoText);
+    console.log(todoText)
+    // Firestoreから再取得して最新化
+    const fetched = await fetchTodos();
+    setTodos(
+      fetched.map((data) => ({
+        text: data.text as string,
+        completed: data.completed as boolean,
+        id: data.id as string,
+      }))
+    );
+    
     setTodoText("");
   }
 
@@ -34,23 +61,25 @@ function App() {
     setTodos(newTodos);
   };
   // 削除
-  const onClickDelete = (index:number) => {
-    const newTodoLists = [...todos];
-    newTodoLists.splice(index,1);
-    setTodos(newTodoLists);
-    //ここに完了数を更新する処理を書く
+  const onClickDelete =  async (id:string) => {
+    await deleteTodo(id);
+    // 再度firebaseから取得
+    const fetchData = await fetchTodos();
+    setTodos(fetchData)
+    
   }
   //編集
   const onClickEdit = (index:number) => {
       setEditIndex(index);
-      setEditText(todos[index].text);
+      // setEditText(todos[index].text);
   }
   //保存
-  const onClickSave = (newText: string) => {
+  const onClickSave = async (newText: string) => {
     if (editIndex !== null) {
-      const newTodos = [...todos];
-      newTodos[editIndex].text = newText;
-      setTodos(newTodos);
+      const newTodos = todos[editIndex];
+      await updateTodo(newTodos.id,newText)
+      const fetchData = await fetchTodos(); 
+      setTodos(fetchData);
       setEditIndex(null);
     }
   }

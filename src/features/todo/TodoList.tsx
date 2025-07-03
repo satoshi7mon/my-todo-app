@@ -1,9 +1,9 @@
 import { EditIcon, DeleteIcon } from "lucide-react";
-import type { Todo } from "./type";
+import type { Todo } from "./Type";
 
 type TodoListItem = {
   todos : Todo[];
-  onClickDelete: (index:number) => void;
+  onClickDelete: (index:string) => void;
   onClickEdit: (index: number) => void;
   onToggleComplete: (index: number) => void;
 }
@@ -26,7 +26,7 @@ export const TodoList = ({todos,onClickDelete,onClickEdit,onToggleComplete}: Tod
         </div>
         <div className="flex flex-shrink-0 gap-3">
           <EditIcon onClick={() => onClickEdit(index)} />
-          <DeleteIcon onClick={() => onClickDelete(index)} />
+          <DeleteIcon onClick={() => onClickDelete(todo.id)} />
         </div>
       </div>
       ))}
